@@ -7,11 +7,13 @@ export class Renderer {
     private readonly ctx: CanvasRenderingContext2D;
 
     constructor(params: { canvasHeight: number, canvasWidth: number }) {
-        this.canvas = document.getElementById('canvas-main') as HTMLCanvasElement;
+        const wrapper = document.getElementById('renderer-wrapper');
+        this.canvas = document.createElement('canvas');
         this.ctx = this.canvas.getContext('2d');
 
         this.canvas.height = params.canvasHeight;
         this.canvas.width = params.canvasWidth;
+        wrapper.appendChild(this.canvas);
     }
 
     drawRect(params: RectParams): void {
