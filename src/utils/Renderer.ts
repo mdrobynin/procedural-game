@@ -6,14 +6,19 @@ export class Renderer {
     private readonly canvas: HTMLCanvasElement;
     private readonly ctx: CanvasRenderingContext2D;
 
-    constructor(params: { canvasHeight: number, canvasWidth: number }) {
+    constructor() {
         const wrapper = document.getElementById('renderer-wrapper');
         this.canvas = document.createElement('canvas');
         this.ctx = this.canvas.getContext('2d');
 
-        this.canvas.height = params.canvasHeight;
-        this.canvas.width = params.canvasWidth;
+        this.canvas.height = window.innerHeight;
+        this.canvas.width = window.innerWidth;
         wrapper.appendChild(this.canvas);
+
+        window.addEventListener('resize', () => {
+            this.canvas.height = window.innerHeight;
+            this.canvas.width = window.innerWidth;
+        });
     }
 
     drawRect(params: RectParams): void {

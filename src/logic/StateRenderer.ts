@@ -8,10 +8,7 @@ export class StateRenderer {
     private readonly environmentRenderer: Renderer;
     
     constructor() {
-        this.playerRenderer = new Renderer({
-            canvasHeight: window.innerHeight,
-            canvasWidth: window.innerWidth,
-        });
+        this.playerRenderer = new Renderer();
     }
 
     public render(gameState: GameState): void {

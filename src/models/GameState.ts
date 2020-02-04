@@ -16,7 +16,7 @@ export class GameState {
     }
     
     handleUpdate(keysState: KeysState): void {
-        // this.handlePlayerMovement(keysState);
+        this.handlePlayerMovement(keysState);
     }
 
     private handlePlayerMovement(keysState: KeysState): void {
