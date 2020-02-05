@@ -1,6 +1,7 @@
 import { RectParams } from "../interfaces/RectParams";
 import { CircleParams } from "../interfaces/CircleParams";
 import { Config } from "../constants/Config";
+import { Color } from "../constants/Сolor";
 
 export class Renderer {
     private readonly canvas: HTMLCanvasElement;
@@ -14,6 +15,7 @@ export class Renderer {
         this.canvas.height = window.innerHeight;
         this.canvas.width = window.innerWidth;
         wrapper.appendChild(this.canvas);
+        this.clear();
 
         window.addEventListener('resize', () => {
             this.canvas.height = window.innerHeight;
@@ -35,6 +37,12 @@ export class Renderer {
     }
 
     clear(): void {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawRect({
+            top: 0,
+            left: 0,
+            height: this.canvas.height,
+            width: this.canvas.width,
+            color: Config.DEFAULT_COLOR
+        })
     }
 }

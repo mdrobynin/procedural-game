@@ -9,87 +9,103 @@ export class GameState {
 
     constructor() {
         this.playerState = {
-            top: 100,
-            left: 100,
             angle: 0,
         };
+        this.environmentState = {
+            coordinates: { X: 0, Y: 0}
+        }
     }
     
     handleUpdate(keysState: KeysState): void {
-        this.handlePlayerMovement(keysState);
+        const { deltaX, deltaY } = this.calculateDelta(keysState);
+        const { X, Y } = this.environmentState.coordinates;
+
+        this.environmentState.coordinates.X = X + deltaX;
+        this.environmentState.coordinates.Y = Y + deltaY;
+
+        if (deltaX || deltaY) {
+            console.log(this.environmentState.coordinates);
+        }
     }
 
-    private handlePlayerMovement(keysState: KeysState): void {
+    private calculateDelta(keysState: KeysState): { deltaX: number, deltaY: number} {
         const {
             isArrowUpPressed,
             isArrowDownPressed,
             isArrowLeftPressed,
             isArrowRightPressed,
-            isSpacePressed,
         } = keysState;
+        const delta = {
+            deltaX: 0,
+            deltaY: 0,
+        }
+
+        if (!isArrowDownPressed && !isArrowUpPressed && !isArrowLeftPressed && !isArrowRightPressed) {
+            return delta;
+        }
 
         if (isArrowUpPressed && isArrowDownPressed) {
-            return;
+            return delta;
         }
 
         if (isArrowLeftPressed && isArrowRightPressed) {
-            return;
+            return delta;
         }
 
         if (isArrowDownPressed) {
             if (isArrowLeftPressed) {
-                this.playerState.left -= Config.PLAYER_DIAGONAL_SPEED;
-                this.playerState.top += Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaY = -Config.PLAYER_DIAGONAL_SPEED;
             } else if (isArrowRightPressed) {
-                this.playerState.left += Config.PLAYER_DIAGONAL_SPEED;
-                this.playerState.top += Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaY = Config.PLAYER_DIAGONAL_SPEED;
             } else {
-                this.playerState.top += Config.PLAYER_SPEED;
+                delta.deltaX = Config.PLAYER_SPEED;
             }
 
-            return;
+            return delta;
         }
 
         if (isArrowUpPressed) {
             if (isArrowLeftPressed) {
-                this.playerState.left -= Config.PLAYER_DIAGONAL_SPEED;
-                this.playerState.top -= Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaX = -Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaY = -Config.PLAYER_DIAGONAL_SPEED;
             } else if (isArrowRightPressed) {
-                this.playerState.left += Config.PLAYER_DIAGONAL_SPEED;
-                this.playerState.top -= Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaY = -Config.PLAYER_DIAGONAL_SPEED;
             } else {
-                this.playerState.top -= Config.PLAYER_SPEED;
+                delta.deltaX = -Config.PLAYER_SPEED;
             }
 
-            return;
+            return delta;
         }
 
         if (isArrowLeftPressed) {
             if (isArrowDownPressed) {
-                this.playerState.left -= Config.PLAYER_DIAGONAL_SPEED;
-                this.playerState.top += Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaY = -Config.PLAYER_DIAGONAL_SPEED;
             } else if (isArrowUpPressed) {
-                this.playerState.left -= Config.PLAYER_DIAGONAL_SPEED;
-                this.playerState.top -= Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaY = Config.PLAYER_DIAGONAL_SPEED;
             } else {
-                this.playerState.left -= Config.PLAYER_SPEED;
+                delta.deltaY = - Config.PLAYER_SPEED;
             }
 
-            return;
+            return delta;
         }
 
         if (isArrowRightPressed) {
             if (isArrowDownPressed) {
-                this.playerState.left += Config.PLAYER_DIAGONAL_SPEED;
-                this.playerState.top += Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaY = Config.PLAYER_DIAGONAL_SPEED;
             } else if (isArrowUpPressed) {
-                this.playerState.left += Config.PLAYER_DIAGONAL_SPEED;
-                this.playerState.top -= Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaX = -Config.PLAYER_DIAGONAL_SPEED;
+                delta.deltaY = Config.PLAYER_DIAGONAL_SPEED;
             } else {
-                this.playerState.left += Config.PLAYER_SPEED;
+                delta.deltaY = Config.PLAYER_SPEED;
             }
 
-            return;
+            return delta;
         }
     }
 }
