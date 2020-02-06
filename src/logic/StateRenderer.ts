@@ -10,12 +10,13 @@ export class StateRenderer {
     private readonly environmentRenderer: Renderer;
     
     constructor() {
-        this.playerRenderer = new Renderer();
+        this.environmentRenderer = new Renderer();
+        // this.playerRenderer = new Renderer();
     }
 
     public render(gameState: GameState): void {
-        this.renderPlayerState(gameState.playerState);
-        this.renderEnvironmentState(gameState.environmentState)
+        this.renderEnvironmentState(gameState.environmentState);
+        // this.renderPlayerState(gameState.playerState);
     }
 
     private renderPlayerState(playerState: PlayerState): void {
@@ -29,6 +30,14 @@ export class StateRenderer {
     }
 
     private renderEnvironmentState(environmentState: EnvironmentState): void {
-
+        this.environmentRenderer.clear();
+        environmentState.stars.forEach(star => {
+            this.environmentRenderer.drawCircle({
+                top: star.top,
+                left: star.left,
+                color: star.color,
+                radius: star.radius
+            })
+        });
     }
 }

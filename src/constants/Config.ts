@@ -7,5 +7,6 @@ export const Config = {
     LOOP_TIMESPAN: 1000 / 60,
     PLAYER_SIZE: 10,
     PLAYER_SPEED,
-    PLAYER_DIAGONAL_SPEED: PLAYER_SPEED / Math.sqrt(2)
+    PLAYER_DIAGONAL_SPEED: PLAYER_SPEED / Math.sqrt(2),
+    CELL_SIZE: 20
 };
