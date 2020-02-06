@@ -70,73 +70,23 @@ export class GameState {
             deltaX: 0,
             deltaY: 0,
         }
-
-        if (!isArrowDownPressed && !isArrowUpPressed && !isArrowLeftPressed && !isArrowRightPressed) {
-            return delta;
-        }
-
-        if (isArrowUpPressed && isArrowDownPressed) {
-            return delta;
-        }
-
-        if (isArrowLeftPressed && isArrowRightPressed) {
-            return delta;
+        
+        if (isArrowUpPressed) {
+            delta.deltaY -= Config.PLAYER_SPEED;
         }
 
         if (isArrowDownPressed) {
-            if (isArrowLeftPressed) {
-                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
-                delta.deltaY = -Config.PLAYER_DIAGONAL_SPEED;
-            } else if (isArrowRightPressed) {
-                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
-                delta.deltaY = Config.PLAYER_DIAGONAL_SPEED;
-            } else {
-                delta.deltaX = Config.PLAYER_SPEED;
-            }
-
-            return delta;
-        }
-
-        if (isArrowUpPressed) {
-            if (isArrowLeftPressed) {
-                delta.deltaX = -Config.PLAYER_DIAGONAL_SPEED;
-                delta.deltaY = -Config.PLAYER_DIAGONAL_SPEED;
-            } else if (isArrowRightPressed) {
-                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
-                delta.deltaY = -Config.PLAYER_DIAGONAL_SPEED;
-            } else {
-                delta.deltaX = -Config.PLAYER_SPEED;
-            }
-
-            return delta;
+            delta.deltaY += Config.PLAYER_SPEED;
         }
 
         if (isArrowLeftPressed) {
-            if (isArrowDownPressed) {
-                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
-                delta.deltaY = -Config.PLAYER_DIAGONAL_SPEED;
-            } else if (isArrowUpPressed) {
-                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
-                delta.deltaY = Config.PLAYER_DIAGONAL_SPEED;
-            } else {
-                delta.deltaY = - Config.PLAYER_SPEED;
-            }
-
-            return delta;
+            delta.deltaX -= Config.PLAYER_SPEED;
         }
 
         if (isArrowRightPressed) {
-            if (isArrowDownPressed) {
-                delta.deltaX = Config.PLAYER_DIAGONAL_SPEED;
-                delta.deltaY = Config.PLAYER_DIAGONAL_SPEED;
-            } else if (isArrowUpPressed) {
-                delta.deltaX = -Config.PLAYER_DIAGONAL_SPEED;
-                delta.deltaY = Config.PLAYER_DIAGONAL_SPEED;
-            } else {
-                delta.deltaY = Config.PLAYER_SPEED;
-            }
-
-            return delta;
+            delta.deltaX += Config.PLAYER_SPEED;
         }
+
+        return delta;
     }
 }
