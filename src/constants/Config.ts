@@ -1,6 +1,6 @@
 import { Color } from './Сolor';
 
-const PLAYER_SPEED = 10;
+const PLAYER_SPEED = 1;
 
 export const Config = {
     DEFAULT_COLOR: Color.BLACK,

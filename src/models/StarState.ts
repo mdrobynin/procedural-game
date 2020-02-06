@@ -25,7 +25,14 @@ export class StarState {
 
     constructor(random: Random) {
         this.random = random;
-        this.isExists = this.random.nextDouble(0, 100) < 2;
+        const iterations = random.nextInt(3, 10);
+        let temp = random.nextDouble(0, 100);
+
+        for (let i = 0; i < iterations; i ++) {
+            temp = this.random.nextDouble(0, 100);
+        }
+
+        this.isExists = temp < 2;
 
         if (!this.isExists) return;
 
